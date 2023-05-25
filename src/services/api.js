@@ -7,7 +7,15 @@ export const getTrendsMovies = async () => {
   try {
     return axios.get(`${BASE_URL}trending/all/day?api_key=${API_KEY}`);
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
+  }
+};
+
+export const getMoviesDetails = async movieId => {
+  try {
+    return axios.get(`${BASE_URL}movie/${movieId}?api_key=${API_KEY}`);
+  } catch (error) {
+    throw new Error(error.message);
   }
 };
 
@@ -23,27 +31,6 @@ export const getTrendsMovies = async () => {
 //   };
 
 //   return axios
-//     .request(options)
-//     .then(function (response) {
-//       console.log(response.data);
-//     })
-//     .catch(function (error) {
-//       console.error(error);
-//     });
-// };
-
-// export const getMoviesDetails = () => {
-//   const options = {
-//     method: 'GET',
-//     url: `${BASE_URL}movie/movie_id`,
-//     params: { language: 'en-US' },
-//     headers: {
-//       accept: 'application/json',
-//       Authorization: `Bearer ${API_KEY}`,
-//     },
-//   };
-
-//   axios
 //     .request(options)
 //     .then(function (response) {
 //       console.log(response.data);
