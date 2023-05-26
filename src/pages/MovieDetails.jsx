@@ -5,21 +5,21 @@ import { getMoviesDetails } from 'services';
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await getMoviesDetails(movieId);
-        console.log(data);
         setMovie(data);
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
+        setError(e.message);
       }
     };
 
     getData();
-  }, [movieId]);
-
-  movie && console.log(movie);
+  }, [movieId, error]);
 
   return (
     <>
@@ -31,9 +31,26 @@ const MovieDetails = () => {
           />
           <div>
             <h2>{movie.original_title}</h2>
-            <p>{movie.overview}</p>
-            <p>Rating: {movie.vote_average}</p>
-            <p>Genres: 'movie.genres'</p>
+            <div>
+              <span>Overview</span>
+              <p>{movie.overview}</p>
+            </div>
+            <div>
+              <span>User Score</span>
+              <p>{movie.vote_average}</p>
+            </div>
+            <div>
+              <span>Genres</span>
+              <ul>
+                {movie.genres.map(genre => {
+                  return (
+                    <li key={genre.id}>
+                      <span>{genre.name}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </main>
       )}
