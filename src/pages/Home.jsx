@@ -1,11 +1,7 @@
-import { MoviesList } from 'components/MoviesList';
+import MoviesList from 'components/MoviesList/MoviesList';
 
 const Home = () => {
-  return (
-    <section>
-      <MoviesList />
-    </section>
-  );
+  return <MoviesList />;
 };
 
 export default Home;

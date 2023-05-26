@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendsMovies } from 'services';
 
-export const MoviesList = () => {
+const MoviesList = () => {
   const [movies, setMovies] = useState(null);
 
   useEffect(() => {
@@ -31,3 +31,5 @@ export const MoviesList = () => {
     </ul>
   );
 };
+
+export default MoviesList;
