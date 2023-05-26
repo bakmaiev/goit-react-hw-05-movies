@@ -24,7 +24,7 @@ const MovieDetails = () => {
   return (
     <>
       {movie && (
-        <main>
+        <section>
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.original_title}
@@ -52,7 +52,7 @@ const MovieDetails = () => {
               </ul>
             </div>
           </div>
-        </main>
+        </section>
       )}
     </>
   );

@@ -2,9 +2,9 @@ import { MoviesList } from 'components/MoviesList';
 
 const Home = () => {
   return (
-    <main>
-      <MoviesList></MoviesList>
-    </main>
+    <section>
+      <MoviesList />
+    </section>
   );
 };
 
