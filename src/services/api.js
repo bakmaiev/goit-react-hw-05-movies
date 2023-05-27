@@ -37,23 +37,12 @@ export const getMoviesReviews = (movieId, page = 1) => {
   }
 };
 
-// export const getMoviesByQuery = () => {
-//   const options = {
-//     method: 'GET',
-//     url: `${BASE_URL}search/movie`,
-//     params: { include_adult: 'false', language: 'en-US', page: '1' },
-//     headers: {
-//       accept: 'application/json',
-//       Authorization: `Bearer ${API_KEY}`,
-//     },
-//   };
-
-//   return axios
-//     .request(options)
-//     .then(function (response) {
-//       console.log(response.data);
-//     })
-//     .catch(function (error) {
-//       console.error(error);
-//     });
-// };
+export const getMoviesByQuery = (query, page = 1) => {
+  try {
+    return axios.get(
+      `${BASE_URL}search/movie?api_key=${API_KEY}&query=${query}&page=${page}`
+    );
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
