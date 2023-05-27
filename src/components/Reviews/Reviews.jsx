@@ -9,7 +9,6 @@ const Reviews = () => {
     const getData = async () => {
       const { data } = await getMoviesReviews(movieId);
       setReviews(data.results);
-      console.log(data.results);
     };
     getData();
   }, [movieId]);
