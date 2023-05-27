@@ -1,13 +1,15 @@
 import MovieInfo from 'components/MovieInfo/MovieInfo';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { getMoviesDetails } from 'services';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const getData = async () => {
@@ -27,6 +29,9 @@ const MovieDetails = () => {
     <>
       {movie && (
         <>
+          <span>
+            <Link to={backLinkLocationRef.current}>Back to movies</Link>
+          </span>
           <MovieInfo movie={movie} />
           <ul>
             <li>
