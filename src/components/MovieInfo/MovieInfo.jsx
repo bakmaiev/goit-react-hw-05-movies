@@ -7,11 +7,17 @@ const MovieInfo = ({ movie }) => {
     <StyledInfoWrapper>
       <img
         className="img"
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.original_title}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : `https://placehold.co/400x600?text=${
+                movie.title ?? movie.name
+              }&font=roboto`
+        }
+        alt={movie.title}
       />
       <div className="info">
-        <h2 className="title">{movie.original_title}</h2>
+        <h2 className="title">{movie.title}</h2>
         <div>
           <span className="subtitle">Overview</span>
           <p>{movie.overview}</p>

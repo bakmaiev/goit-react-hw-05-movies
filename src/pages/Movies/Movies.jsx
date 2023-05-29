@@ -2,6 +2,11 @@ import SearchForm from 'components/SearchForm/SearchForm';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getMoviesByQuery } from 'services';
+import {
+  StyledMoviesItem,
+  StyledMoviesList,
+  StyledMoviesWrapper,
+} from './StyledMovies';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,19 +40,31 @@ const Movies = () => {
     <>
       <SearchForm onSubmit={handleSubmitForm} />
       {moviesByQuery && (
-        <div>
-          <ul>
-            {moviesByQuery.map(movie => {
+        <StyledMoviesWrapper>
+          <StyledMoviesList>
+            {moviesByQuery.map(({ id, title, name, poster_path }) => {
               return (
-                <li key={movie.id}>
-                  <Link to={`${movie.id}`} state={{ from: location }}>
-                    {movie.title ?? movie.name}
+                <StyledMoviesItem key={id}>
+                  <Link to={`${id}`} state={{ from: location }}>
+                    <div className="card">
+                      <img
+                        className="img"
+                        src={
+                          poster_path
+                            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                            : `https://placehold.co/400x600?text=${
+                                title ?? name
+                              }&font=roboto`
+                        }
+                        alt={title ?? name}
+                      />
+                    </div>
                   </Link>
-                </li>
+                </StyledMoviesItem>
               );
             })}
-          </ul>
-        </div>
+          </StyledMoviesList>
+        </StyledMoviesWrapper>
       )}
     </>
   );

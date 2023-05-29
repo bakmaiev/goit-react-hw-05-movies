@@ -15,6 +15,8 @@ export const StyledHeader = styled.header`
 
     &__title {
       margin: 0px 30px;
+      font-size: inherit;
+      text-transform: uppercase;
     }
 
     &__item {

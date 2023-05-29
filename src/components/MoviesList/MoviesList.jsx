@@ -37,7 +37,13 @@ const MoviesList = () => {
                   <div className="card">
                     <img
                       className="img"
-                      src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+                      src={
+                        poster_path
+                          ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                          : `https://placehold.co/400x600?text=${
+                              title ?? name
+                            }&font=roboto`
+                      }
                       alt={title ?? name}
                     />
                   </div>
