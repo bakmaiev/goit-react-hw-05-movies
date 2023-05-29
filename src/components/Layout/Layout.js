@@ -1,18 +1,17 @@
+import Header from 'components/Header/Header';
 import React, { Suspense } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { StyledMain } from './StyledLayout';
 
 const Layout = () => {
   return (
     <>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/movies">Movies</NavLink>
-      </nav>
-      <main>
+      <Header />
+      <StyledMain>
         <Suspense fallback={<div>Loading subpage...</div>}>
           <Outlet />
         </Suspense>
-      </main>
+      </StyledMain>
     </>
   );
 };
