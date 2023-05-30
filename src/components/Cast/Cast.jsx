@@ -25,7 +25,7 @@ const Cast = () => {
   return (
     <>
       {loading && <Loader />}
-      {cast && cast.length === 0 && <p>No information about actors</p>}
+      {cast && cast.length === 0 && <p>There is no information about actors</p>}
       {cast && (
         <StyledCastList>
           {cast.map(person => {

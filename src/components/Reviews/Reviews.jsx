@@ -24,7 +24,7 @@ const Reviews = () => {
   return (
     <>
       {loading && <Loader />}
-      {reviews && reviews.length === 0 && <p>No information about actors</p>}
+      {reviews && reviews.length === 0 && <p>There are no reviews</p>}
       {reviews && reviews.length > 0 && (
         <StyledReviewsList>
           {reviews.map(review => {
