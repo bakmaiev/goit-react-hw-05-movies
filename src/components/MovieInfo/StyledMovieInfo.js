@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledInfoWrapper = styled.div`
   display: flex;
   gap: 30px;
+  margin-bottom: 20px;
 
   & .img {
     width: 250px;

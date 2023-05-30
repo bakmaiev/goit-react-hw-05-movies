@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const StyledHeader = styled.header`
   .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 60px;
     top: 0;
