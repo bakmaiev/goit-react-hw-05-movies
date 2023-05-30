@@ -12,7 +12,6 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [moviesByQuery, setMoviesByQuery] = useState(null);
   const location = useLocation();
-  console.log(location);
 
   const query = searchParams.get('query') ?? '';
 
@@ -21,9 +20,12 @@ const Movies = () => {
       return;
     }
     const getData = async () => {
-      const { data } = await getMoviesByQuery(query);
-      setMoviesByQuery(data.results);
-      console.log(data.results);
+      try {
+        const { data } = await getMoviesByQuery(query);
+        setMoviesByQuery(data.results);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
     query && getData();
   }, [query]);
@@ -39,6 +41,9 @@ const Movies = () => {
   return (
     <>
       <SearchForm onSubmit={handleSubmitForm} />
+      {moviesByQuery && query !== '' && (
+        <p>We don't have such films. Try to find something else.</p>
+      )}
       {moviesByQuery && (
         <StyledMoviesWrapper>
           <StyledMoviesList>

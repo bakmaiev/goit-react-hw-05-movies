@@ -2,7 +2,6 @@ import React from 'react';
 import { StyledInfoWrapper } from './StyledMovieInfo';
 
 const MovieInfo = ({ movie }) => {
-  console.log(movie);
   return (
     <StyledInfoWrapper>
       <img

@@ -13,7 +13,6 @@ import {
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [error, setError] = useState(null);
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
@@ -24,16 +23,15 @@ const MovieDetails = () => {
         setMovie(data);
       } catch (e) {
         console.log(e.message);
-        setError(e.message);
       }
     };
 
     getData();
-  }, [movieId, error]);
+  }, [movieId]);
 
   return (
     <>
-      {movie && (
+      {movie ? (
         <>
           <StyledBackLinkWrapper>
             <StyledBackLink to={backLinkLocationRef.current}>
@@ -53,6 +51,10 @@ const MovieDetails = () => {
             <Outlet />
           </Suspense>
         </>
+      ) : (
+        <p style={{ textAlign: 'center' }}>
+          Something went wrong. Reload the page.
+        </p>
       )}
     </>
   );

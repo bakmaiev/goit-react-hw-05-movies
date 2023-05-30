@@ -8,9 +8,12 @@ const Reviews = () => {
   const { movieId } = useParams();
   useEffect(() => {
     const getData = async () => {
-      const { data } = await getMoviesReviews(movieId);
-      setReviews(data.results);
-      console.log(data.results);
+      try {
+        const { data } = await getMoviesReviews(movieId);
+        setReviews(data.results);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
     getData();
   }, [movieId]);

@@ -6,6 +6,7 @@ import {
   StyledMoviesList,
   StyledWrapper,
 } from './StyledMovieList';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MoviesList = () => {
   const [movies, setMovies] = useState(null);
@@ -16,9 +17,8 @@ const MoviesList = () => {
       try {
         const { data } = await getTrendsMovies();
         setMovies(data.results);
-        console.log(data.results);
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
       }
     };
 
@@ -26,33 +26,40 @@ const MoviesList = () => {
   }, []);
 
   return (
-    <StyledWrapper>
-      <h1 className="title">20 MOST POPULAR MOVIES RIGHT NOW</h1>
-      <StyledMoviesList>
-        {movies &&
-          movies.map(({ id, title, name, poster_path }) => {
-            return (
-              <StyledMoviesItem key={id}>
-                <Link to={`movies/${id}`} state={{ from: location }}>
-                  <div className="card">
-                    <img
-                      className="img"
-                      src={
-                        poster_path
-                          ? `https://image.tmdb.org/t/p/w500${poster_path}`
-                          : `https://placehold.co/400x600?text=${
-                              title ?? name
-                            }&font=roboto`
-                      }
-                      alt={title ?? name}
-                    />
-                  </div>
-                </Link>
-              </StyledMoviesItem>
-            );
-          })}
-      </StyledMoviesList>
-    </StyledWrapper>
+    <>
+      <StyledWrapper>
+        <h1 className="title">20 MOST POPULAR MOVIES RIGHT NOW</h1>
+        <StyledMoviesList>
+          {movies ? (
+            movies.map(({ id, title, name, poster_path }) => {
+              return (
+                <StyledMoviesItem key={id}>
+                  <Link to={`movies/${id}`} state={{ from: location }}>
+                    <div className="card">
+                      <img
+                        className="img"
+                        src={
+                          poster_path
+                            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                            : `https://placehold.co/400x600?text=${
+                                title ?? name
+                              }&font=roboto`
+                        }
+                        alt={title ?? name}
+                      />
+                    </div>
+                  </Link>
+                </StyledMoviesItem>
+              );
+            })
+          ) : (
+            <p style={{ textAlign: 'center' }}>
+              Something went wrong. Reload the page.
+            </p>
+          )}
+        </StyledMoviesList>
+      </StyledWrapper>
+    </>
   );
 };
 

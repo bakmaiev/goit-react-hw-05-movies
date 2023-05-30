@@ -8,9 +8,12 @@ const Cast = () => {
   const { movieId } = useParams();
   useEffect(() => {
     const getData = async () => {
-      const { data } = await getMoviesCredits(movieId);
-      setCast(data.cast);
-      console.log(data.cast);
+      try {
+        const { data } = await getMoviesCredits(movieId);
+        setCast(data.cast);
+      } catch (e) {
+        console.log(e.message);
+      }
     };
     getData();
   }, [movieId]);
