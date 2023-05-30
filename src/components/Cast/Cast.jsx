@@ -14,26 +14,26 @@ const Cast = () => {
     };
     getData();
   }, [movieId]);
-  return (
-    cast && (
-      <StyledCastList>
-        {cast.map(person => {
-          return (
-            <StyledCastItem key={person.id}>
-              <img
-                src={
-                  person.profile_path
-                    ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
-                    : `https://placehold.co/400x600?text=${person.name}&font=roboto`
-                }
-                alt={person.name}
-              />
-              <span>{person.name}</span>
-            </StyledCastItem>
-          );
-        })}
-      </StyledCastList>
-    )
+  return cast && cast.length > 0 ? (
+    <StyledCastList>
+      {cast.map(person => {
+        return (
+          <StyledCastItem key={person.id}>
+            <img
+              src={
+                person.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${person.profile_path}`
+                  : `https://placehold.co/400x600?text=${person.name}&font=roboto`
+              }
+              alt={person.name}
+            />
+            <span>{person.name}</span>
+          </StyledCastItem>
+        );
+      })}
+    </StyledCastList>
+  ) : (
+    <p>No information about actors</p>
   );
 };
 
