@@ -8,7 +8,7 @@ const Layout = () => {
     <>
       <Header />
       <StyledMain>
-        <Suspense fallback={<div>Loading subpage...</div>}>
+        <Suspense>
           <Outlet />
         </Suspense>
       </StyledMain>

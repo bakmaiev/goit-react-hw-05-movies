@@ -9,18 +9,22 @@ import {
   StyledDetailsLink,
   StyledDetailsList,
 } from './StyledMovieDetails';
+import { Loader } from 'components/Loader/Loader';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const { data } = await getMoviesDetails(movieId);
         setMovie(data);
+        setLoading(false);
       } catch (e) {
         console.log(e.message);
       }
@@ -31,7 +35,8 @@ const MovieDetails = () => {
 
   return (
     <>
-      {movie ? (
+      {loading && <Loader />}
+      {movie && (
         <>
           <StyledBackLinkWrapper>
             <StyledBackLink to={backLinkLocationRef.current}>
@@ -47,14 +52,10 @@ const MovieDetails = () => {
               <StyledDetailsLink to="reviews">Reviews</StyledDetailsLink>
             </li>
           </StyledDetailsList>
-          <Suspense fallback={<div>Loading subpage...</div>}>
+          <Suspense>
             <Outlet />
           </Suspense>
         </>
-      ) : (
-        <p style={{ textAlign: 'center' }}>
-          Something went wrong. Reload the page.
-        </p>
       )}
     </>
   );

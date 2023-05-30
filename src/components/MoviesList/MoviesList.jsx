@@ -7,16 +7,20 @@ import {
   StyledWrapper,
 } from './StyledMovieList';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loader } from 'components/Loader/Loader';
 
 const MoviesList = () => {
   const [movies, setMovies] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const { data } = await getTrendsMovies();
         setMovies(data.results);
+        setLoading(false);
       } catch (e) {
         console.log(e.message);
       }
@@ -27,10 +31,16 @@ const MoviesList = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <StyledWrapper>
         <h1 className="title">20 MOST POPULAR MOVIES RIGHT NOW</h1>
         <StyledMoviesList>
-          {movies ? (
+          {movies && movies.length === 0 && (
+            <p style={{ textAlign: 'center' }}>
+              Something went wrong. Reload the page.
+            </p>
+          )}
+          {movies &&
             movies.map(({ id, title, name, poster_path }) => {
               return (
                 <StyledMoviesItem key={id}>
@@ -51,12 +61,7 @@ const MoviesList = () => {
                   </Link>
                 </StyledMoviesItem>
               );
-            })
-          ) : (
-            <p style={{ textAlign: 'center' }}>
-              Something went wrong. Reload the page.
-            </p>
-          )}
+            })}
         </StyledMoviesList>
       </StyledWrapper>
     </>

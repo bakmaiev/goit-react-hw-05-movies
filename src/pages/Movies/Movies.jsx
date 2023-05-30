@@ -7,10 +7,12 @@ import {
   StyledMoviesList,
   StyledMoviesWrapper,
 } from './StyledMovies';
+import { Loader } from 'components/Loader/Loader';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [moviesByQuery, setMoviesByQuery] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   const query = searchParams.get('query') ?? '';
@@ -21,8 +23,10 @@ const Movies = () => {
     }
     const getData = async () => {
       try {
+        setLoading(true);
         const { data } = await getMoviesByQuery(query);
         setMoviesByQuery(data.results);
+        setLoading(false);
       } catch (e) {
         console.log(e.message);
       }
@@ -41,8 +45,9 @@ const Movies = () => {
   return (
     <>
       <SearchForm onSubmit={handleSubmitForm} />
-      {moviesByQuery && query !== '' && (
-        <p>We don't have such films. Try to find something else.</p>
+      {loading && <Loader />}
+      {moviesByQuery && moviesByQuery.length === 0 && query !== '' && (
+        <p>We don't have such films. Try to find something else!</p>
       )}
       {moviesByQuery && (
         <StyledMoviesWrapper>
